@@ -1,0 +1,43 @@
+@use "@angular/material" as mat;
+@use "sass:map";
+@use "./theme/star-wars_theme-colors.scss" as starWars;
+
+html {
+  @include mat.theme(
+    (
+      color: (
+        primary: starWars.$primary-palette,
+        tertiary: starWars.$tertiary-palette
+      ),
+      typograpgy: (
+        Roboto
+      ),
+      density: 0
+    )
+  );
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: var(--mat-sys-on-surface);
+  background-color: var(--mat-sys-on-secondary);
+  height: 100%;
+  padding: 0;
+  &:not(.dark-mode) {
+    --mat-sys-primary-container: #7c7c7c;
+    --mat-sys-primary-on-container: #000000;
+  }
+
+  &.dark-mode {
+    --mat-sys-primary-container: #000000;
+    --mat-sys-primary-on-container: #ffffff;
+    color-scheme: dark;
+  }
+}
+
+
