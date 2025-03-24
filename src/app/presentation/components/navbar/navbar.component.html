@@ -1,0 +1,32 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="over" [autoFocus]="false">
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="sidenav.close()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <span>Menu</span>
+    </mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/" (click)="sidenav.close()">Home</a>
+      <a mat-list-item routerLink="/films" (click)="sidenav.close()">Films</a>
+      <a mat-list-item routerLink="/characters" (click)="sidenav.close()">Characters</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="app-navbar">
+      <button mat-icon-button (click)="toggleSidenav(sidenav)">
+        <mat-icon>{{ sidenav.opened ? "menu_open" : "menu" }}</mat-icon>
+      </button>
+
+      <img src="assets/images/logo.png" alt="logo" class="app-navbar-logo" width="100" />
+      <span class="app-navbar-spacer"></span>
+
+      <button mat-icon-button (click)="isDarkMode.set(!isDarkMode())">
+        <mat-icon>{{ isDarkMode() ? "dark_mode" : "light_mode" }}</mat-icon>
+      </button>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

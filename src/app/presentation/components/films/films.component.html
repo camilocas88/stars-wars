@@ -1,0 +1,149 @@
+<div class="films">
+  <header class="films__header">
+    <h1 class="films__title">STAR WARS FILMS</h1>
+    <div class="films__subtitle">A galaxy of stories</div>
+
+    <div class="films__filters">
+      <mat-form-field appearance="outline">
+        <mat-label>Search</mat-label>
+        <input
+          matInput
+          placeholder="Search by title or director"
+          [(ngModel)]="searchTerm"
+          (input)="applyFilters()"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Episode</mat-label>
+        <mat-select
+          [(value)]="selectedEpisode"
+          (selectionChange)="applyFilters()"
+          multiple
+        >
+          <mat-option
+            *ngFor="let episode of availableEpisodes"
+            [value]="episode"
+          >
+            Episode {{ episode }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Director</mat-label>
+        <mat-select
+          [(value)]="selectedDirector"
+          (selectionChange)="applyFilters()"
+          multiple
+        >
+          <mat-option
+            *ngFor="let director of availableDirectors()"
+            [value]="director"
+          >
+            {{ director }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        class="films__pagination-button"
+        (click)="clearFilters()"
+      >
+        Clear Filters
+      </button>
+    </div>
+  </header>
+
+  <div *ngIf="loading()" class="films__loading">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Loading films from across the galaxy...</p>
+  </div>
+
+  <div *ngIf="error()" class="films__error">
+    <div class="error-icon">!</div>
+    <p>{{ error() }}</p>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="getFilmsUsecase.execute('')"
+    >
+      Try Again
+    </button>
+  </div>
+
+  <div
+    class="films__grid"
+    *ngIf="!loading() && !error() && filteredFilms()?.length"
+  >
+    <mat-card
+      class="films__card"
+      *ngFor="let film of filteredFilms()"
+      (click)="openFilmDialog(film)"
+      (keydown.enter)="openFilmDialog(film)"
+      tabindex="0"
+      [attr.aria-label]="
+        'Star Wars Episode ' + film.episode_id + ': ' + film.title
+      "
+    >
+      <mat-card-header>
+        <div
+          mat-card-avatar
+          class="films__card-avatar episode-{{ film.episode_id }}"
+        >
+          <span>{{ film.episode_id }}</span>
+        </div>
+        <mat-card-title>{{ film.title }}</mat-card-title>
+        <mat-card-subtitle>Episode {{ film.episode_id }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <div class="films__card-image episode-{{ film.episode_id }}">
+        <div class="films__card-image-content">
+          <div class="films__card-image-title">EP {{ film.episode_id }}</div>
+          <div class="films__card-image-subtitle">{{ film.title }}</div>
+        </div>
+      </div>
+
+      <mat-card-content>
+        <p class="films__card-info">
+          Released: {{ film.release_date | date : "yyyy" }}<br />
+          Director: {{ film.director }}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button class="films__view-button">View Details</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div
+    class="films__empty"
+    *ngIf="!loading() && !error() && !filteredFilms()?.length"
+  >
+    <p>No films found in this galaxy. Perhaps the archives are incomplete.</p>
+  </div>
+
+  <div
+    class="films__pagination"
+    *ngIf="!loading() && !error() && films()?.length"
+  >
+    <button
+      mat-raised-button
+      class="films__pagination-button"
+      (click)="prevPage()"
+      [disabled]="getFilmsUsecase.currentPage === 1"
+    >
+      Prev
+    </button>
+    <button
+      mat-raised-button
+      class="films__pagination-button"
+      (click)="loadMore()"
+      [disabled]="!hasMoreFilms()"
+    >
+      {{ hasMoreFilms() ? "Next" : "No More Films" }}
+    </button>
+  </div>
+</div>

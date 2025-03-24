@@ -1,0 +1,134 @@
+@use "sass:color";
+@use "../../../../theme/styles/_films-variables.scss" as vars;
+
+.characters {
+  padding: 2rem;
+  background-color: vars.$bg-color;
+  color: vars.$text-color;
+  min-height: 100vh;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 0%, vars.$bg-color 100%),
+      radial-gradient(circle at 20% 80%, #222 0%, transparent 10%),
+      radial-gradient(circle at 80% 10%, #222 0%, transparent 10%);
+    z-index: -1;
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    .characters__filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-top: 2rem;
+
+      mat-form-field {
+        min-width: 180px;
+      }
+    }
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: vars.$primary-color;
+  }
+
+  &__subtitle {
+    font-size: 1.2rem;
+    color: vars.$text-muted;
+    font-style: italic;
+  }
+
+  &__loading,
+  &__error,
+  &__empty {
+    text-align: center;
+    margin: 4rem auto;
+    max-width: 500px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid vars.$primary-border;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+    padding: 2rem;
+  }
+
+  &__card {
+    background: vars.$card-bg;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    mat-card-header {
+      padding: 16px;
+    }
+    mat-card-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+      color: #fff;
+    }
+    mat-card-subtitle {
+      color: vars.$text-muted;
+    }
+
+    mat-card-content {
+      p {
+        color: vars.$text-muted;
+        margin: 0;
+        line-height: 1.5;
+      }
+    }
+  }
+
+  &__pagination {
+    text-align: center;
+    margin: 3rem 0 2rem;
+
+    button {
+      background: vars.$primary-color;
+      color: #000;
+      padding: 0.8rem 2rem;
+      border-radius: 4px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+      }
+
+      &:disabled {
+        background: #666;
+        color: #999;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

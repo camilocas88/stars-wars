@@ -1,0 +1,16 @@
+@use "../../../../../theme/styles/_films-variables.scss" as vars;
+
+:host {
+  display: block;
+  background: vars.$modal-bg;
+  color: vars.$text-color;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+mat-dialog-content {
+  p {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+}

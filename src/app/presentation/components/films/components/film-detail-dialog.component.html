@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>{{ film.title }}</h2>
+<mat-dialog-content>
+  <p><strong>Episode:</strong> {{ film.episode_id }}</p>
+  <p><strong>Director:</strong> {{ film.director }}</p>
+  <p><strong>Producer:</strong> {{ film.producer }}</p>
+  <p><strong>Release Date:</strong> {{ film.release_date  }}</p>
+  <p>{{ film.opening_crawl }}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Close</button>
+</mat-dialog-actions>

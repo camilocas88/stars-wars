@@ -1,0 +1,74 @@
+<div class="characters">
+  <header class="characters__header">
+    <h1 class="characters__title">Star Wars Characters</h1>
+    <div class="characters__subtitle">
+      Explore the galaxy of heroes, villains and more!
+    </div>
+
+    <div class="characters__filters">
+      <mat-form-field appearance="outline">
+        <mat-label>Search</mat-label>
+        <input
+          matInput
+          placeholder="Search by name or gender"
+          [(ngModel)]="searchTerm"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+    </div>
+  </header>
+
+  <div *ngIf="loading()" class="characters__loading">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Loading characters from across the galaxy...</p>
+  </div>
+
+  <div *ngIf="error()" class="characters__error">
+    <div class="error-icon">!</div>
+    <p>{{ error() }}</p>
+    <button mat-raised-button color="primary" (click)="getCharactersUsecase.execute(1, '')">
+      Try Again
+    </button>
+  </div>
+
+  <div class="characters__grid" *ngIf="!loading() && !error() && filteredCharacters()?.length">
+    <mat-card
+      class="characters__card"
+      *ngFor="let char of filteredCharacters()"
+      tabindex="0"
+      [attr.aria-label]="char.name"
+    >
+      <mat-card-header>
+        <mat-card-title>{{ char.name }}</mat-card-title>
+        <mat-card-subtitle>Gender: {{ char.gender }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>
+          Birth Year: {{ char.birth_year }}<br />
+          Height: {{ char.height }}<br />
+          Mass: {{ char.mass }}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="openCharacterDetail(char.uid)">
+          <ng-container *ngIf="loadingDetailUid() === char.uid; else viewText">
+            <mat-spinner diameter="20"></mat-spinner>
+          </ng-container>
+          <ng-template #viewText>View Details</ng-template>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="characters__empty" *ngIf="!loading() && !error() && !filteredCharacters()?.length">
+    <p>No characters found. Try adjusting your filter or come back later!</p>
+  </div>
+
+  <div class="characters__pagination" *ngIf="!loading() && !error() && characters()?.length">
+    <button mat-raised-button color="primary" (click)="loadMore()">
+      Load More
+    </button>
+  </div>
+</div>

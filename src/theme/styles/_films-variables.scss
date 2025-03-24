@@ -1,0 +1,56 @@
+@use "sass:color";
+
+// ================================
+// Variables
+// ================================
+$bg-color: var(--mat-sys-inverse-primary);
+$primary-color: #ffe81f;
+$primary-glow: rgba(255, 232, 31, 0.7);
+$primary-border: rgba(255, 232, 31, 0.3);
+$text-color: #e0e0e0;
+$text-muted: #aaa;
+$card-bg: #1e1e1e;
+$card-gradient: linear-gradient(145deg, #ffcc00, #ff9500);
+
+$ep1-gradient: linear-gradient(145deg, #ff9500, #ff5e3a);
+$ep2-gradient: linear-gradient(145deg, #ff5e3a, #ff3a8c);
+$ep3-gradient: linear-gradient(145deg, #ff3a8c, #9c3aff);
+$ep4-gradient: linear-gradient(145deg, #ffcc00, #ff9500);
+$ep5-gradient: linear-gradient(145deg, #3a9cff, #3a6cff);
+$ep6-gradient: linear-gradient(145deg, #3affcc, #3aff6c);
+
+$modal-bg: linear-gradient(145deg, #252525, #2d2d2d);
+
+// ================================
+// Mixins
+// ================================
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin button {
+  background: $primary-color;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover:not(:disabled) {
+    background: color.adjust($primary-color, $lightness: 10%);
+    transform: scale(1.05);
+  }
+}
+
+@mixin card-container {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  padding: 1.5rem;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}

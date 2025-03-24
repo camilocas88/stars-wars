@@ -1,0 +1,128 @@
+.home {
+  &__hero {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #000 30%, #1a1a1a 100%);
+
+    &-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+
+      .home__hero-logo {
+        width: 280px;
+        max-width: 80%;
+        margin-bottom: 1rem;
+        animation: floatLogo 3s ease-in-out infinite alternate;
+      }
+
+      .home__hero-title {
+        font-size: 2.5rem;
+        margin: 0.5rem 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .home__hero-subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .home__hero-button {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+        background: #ffe81f;
+        color: #000;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-transform: uppercase;
+        transition: background 0.3s ease;
+        &:hover {
+          background: #ffc107;
+        }
+      }
+    }
+
+    &-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("/assets/images/stars.png") repeat;
+      z-index: 1;
+      animation: moveStars 60s linear infinite;
+      opacity: 0.7;
+    }
+  }
+
+  &__features {
+    width: 100%;
+    max-width: 1200px;
+    margin: -4rem auto 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  &__feature-card {
+    background: #1a1a1a;
+    width: 280px;
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    .home__feature-image {
+      width: 100px;
+      margin-bottom: 1rem;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .home__feature-title {
+      margin: 0.5rem 0;
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      color: #ffe81f;
+      letter-spacing: 1px;
+    }
+
+    .home__feature-description {
+      color: #ccc;
+      font-size: 0.95rem;
+      line-height: 1.4rem;
+    }
+  }
+}
+
+@keyframes floatLogo {
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes moveStars {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 10000px 0;
+  }
+}

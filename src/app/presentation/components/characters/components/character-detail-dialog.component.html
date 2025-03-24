@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>{{ character.name }}</h2>
+<mat-dialog-content>
+  <p><strong>Gender:</strong> {{ character.gender }}</p>
+  <p><strong>Birth Year:</strong> {{ character.birth_year }}</p>
+  <p><strong>Height:</strong> {{ character.height }}</p>
+  <p><strong>Mass:</strong> {{ character.mass }}</p>
+  <p><strong>Hair Color:</strong> {{ character.hair_color }}</p>
+  <p><strong>Skin Color:</strong> {{ character.skin_color }}</p>
+  <p><strong>Eye Color:</strong> {{ character.eye_color }}</p>
+  <p><strong>Films:</strong> {{ character.films.length || 0 }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Close</button>
+</mat-dialog-actions>
